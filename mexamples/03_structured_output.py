@@ -37,7 +37,8 @@ def setup_custom_client():
 # 模型配置 - 使用最便宜的模型进行测试
 #CHEAP_MODEL = "gpt-3.5-turbo"  # 最便宜的 OpenAI 模型
 #CHEAP_MODEL = "gpt-4.1"  # 最便宜的 OpenAI 模型
-CHEAP_MODEL = "gpt-4.1-mini"  # 最便宜的 OpenAI 模型
+#CHEAP_MODEL = "gpt-4.1-mini"  # 最便宜的 OpenAI 模型
+CHEAP_MODEL = "gpt-4.1-nano"  # 最便宜的 OpenAI 模型
 
 # ============ 定义输出结构 ============
 
@@ -77,6 +78,7 @@ class MovieList(BaseModel):
 @function_tool
 def search_movies(genre: Annotated[str, "电影类型"]) -> str:
     """搜索指定类型的电影"""
+    # 这是mock数据，实际搜索需要调用API，这里只是模拟一下
     print(f"🎬 搜索电影: genre='{genre}'")
     movies = {
         "科幻": ["星际穿越", "盗梦空间", "黑客帝国"],
@@ -177,7 +179,7 @@ async def example_4_with_tools():
         output_type=MovieList,
     )
     
-    query = "推荐3部科幻电影给我"
+    query = "我很喜欢看科幻电影，推荐1部科幻电影给我"
     print(f"\n📝 输入: {query}")
     
     result = await Runner.run(agent, query)

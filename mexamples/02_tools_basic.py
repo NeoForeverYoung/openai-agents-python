@@ -46,6 +46,8 @@ def setup_custom_client():
 @function_tool
 def get_weather(city: Annotated[str, "要查询天气的城市名称"]) -> str:
     """获取指定城市的天气信息"""
+    # function_tool的参数，是大模型自动识别并提取的，这就是跟普通业务逻辑不一样的地方
+    # 普通非AI的业务逻辑，是人工识别并提取参数的
     print(f"🌤️  调用工具: get_weather(city='{city}')")
     
     # 这里可以集成真实的天气 API，现在我们返回模拟数据

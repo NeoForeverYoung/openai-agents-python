@@ -169,6 +169,10 @@ async def example_3_session_with_tools():
         model=CHEAP_MODEL,
         tools=[get_user_info, save_user_preference, get_weather],
     )
+    # 本质上，AI agent SDK做得事情，就是在对大模型做一些限制，让大模型只能做我们希望它做的事情，这样我们才能保证大模型的输出是我们希望的。然后SDK将一些通用的东西封装成API，让用户可以方便地使用。比如记忆会话，就是将对话历史存储到数据库中，然后每次运行时，将对话历史加载到输入中。
+
+    # 实际上，AI大模型往session里记录啥，我们也不知道，这是大模型的黑盒，我们只能通过API来使用。 不是这样的
+    # 
     
     session = SQLiteSession("user_003", "conversations.db")
     print(f"🗄️  创建会话: {session.session_id}")
@@ -279,12 +283,13 @@ async def main():
     print("✅ 自定义客户端配置完成\n")
     
     # 运行所有示例
-    await example_1_basic_session()
-    await example_2_multiple_sessions()
+    # await example_1_basic_session()
+    #await example_2_multiple_sessions()
     await example_3_session_with_tools()
-    await example_4_session_management()
-    await example_5_advanced_session_features()
+    # await example_4_session_management()
+    # await example_5_advanced_session_features()
     
+    """
     print("\n" + "="*60)
     print("✅ 第四课完成！")
     print("="*60)
@@ -296,6 +301,7 @@ async def main():
     print("5. 会话可以与工具结合使用")
     print("6. 支持多用户独立会话")
     print("\n💡 下一步: 学习 Agent 交接和多 Agent 协作")
+    """
 
 if __name__ == "__main__":
     if CUSTOM_API_KEY == "your-api-key-here":

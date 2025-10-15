@@ -20,7 +20,11 @@ from agents import (
 # 自定义域名配置
 CUSTOM_BASE_URL = "https://aihubmix.com/v1"
 CUSTOM_API_KEY = os.getenv("AIHUBMIX_API_KEY", "your-api-key-here")
-CHEAP_MODEL = "gpt-3.5-turbo"
+# 模型配置 - 使用最便宜的模型进行测试
+#CHEAP_MODEL = "gpt-3.5-turbo"  # 最便宜的 OpenAI 模型
+#CHEAP_MODEL = "gpt-4.1"  # 最便宜的 OpenAI 模型
+#CHEAP_MODEL = "gpt-4.1-mini"  # 最便宜的 OpenAI 模型
+CHEAP_MODEL = "gpt-4.1-nano"  # 最便宜的 OpenAI 模型
 
 def setup_custom_client():
     """设置自定义客户端"""

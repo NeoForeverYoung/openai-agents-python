@@ -20,6 +20,9 @@ from agents import (
 CUSTOM_BASE_URL = "https://aihubmix.com/v1"
 CUSTOM_API_KEY = os.getenv("AIHUBMIX_API_KEY", "your-api-key-here")
 
+# 模型配置 - 使用最便宜的模型进行测试
+CHEAP_MODEL = "gpt-3.5-turbo"  # 最便宜的 OpenAI 模型
+
 def setup_custom_client():
     """设置自定义客户端"""
     client = AsyncOpenAI(
@@ -94,6 +97,7 @@ async def example_1_single_tool():
     agent = Agent(
         name="天气助手",
         instructions="你是一个天气查询助手，可以帮助用户查询城市天气。",
+        model=CHEAP_MODEL,  # 使用最便宜的模型
         tools=[get_weather],  # 只添加天气工具
     )
     
@@ -113,24 +117,12 @@ async def example_2_multiple_tools():
     print("📚 示例2: 多个工具 - 智能助手")
     print("="*50)
 
-    """ 
     agent = Agent(
         name="智能助手",
         instructions="你是一个多功能智能助手，可以查询天气、进行计算和告诉用户当前时间。",
+        model=CHEAP_MODEL,  # 使用最便宜的模型
         tools=[get_weather, calculate, get_current_time],  # 添加多个工具
     )
-    """
-    agent = Agent(
-    name="智能助手",
-    instructions="""你是一个多功能智能助手，可以：
-    1. 查询天气信息
-    2. 进行数学计算  
-    3. 告诉用户当前时间
-    
-    如果用户的问题与这些功能无关，请礼貌地告知用户你只能处理上述类型的任务。
-    """,
-    tools=[get_weather, calculate, get_current_time],
-)
     
     questions = [
         #"现在几点了？",
@@ -160,6 +152,7 @@ async def example_3_complex_query():
         
         根据用户需求自动选择合适的工具，如果需要多个步骤，可以调用多个工具。
         """,
+        model=CHEAP_MODEL,  # 使用最便宜的模型
         tools=[get_weather, calculate, get_current_time],
     )
     

@@ -34,6 +34,11 @@ def setup_custom_client():
     set_tracing_disabled(disabled=True)
     return client
 
+# 模型配置 - 使用最便宜的模型进行测试
+#CHEAP_MODEL = "gpt-3.5-turbo"  # 最便宜的 OpenAI 模型
+#CHEAP_MODEL = "gpt-4.1"  # 最便宜的 OpenAI 模型
+CHEAP_MODEL = "gpt-4.1-mini"  # 最便宜的 OpenAI 模型
+
 # ============ 定义输出结构 ============
 
 class WeatherInfo(BaseModel):
@@ -91,6 +96,7 @@ async def example_1_simple_structure():
     agent = Agent(
         name="天气分析师",
         instructions="分析天气信息并以结构化格式返回",
+        model=CHEAP_MODEL,  # 使用最便宜的模型
         output_type=WeatherInfo,  # 指定输出类型
     )
     
@@ -115,6 +121,7 @@ async def example_2_calculation_structure():
     agent = Agent(
         name="计算助手",
         instructions="执行数学计算并以结构化格式返回结果",
+        model=CHEAP_MODEL,  # 使用最便宜的模型
         output_type=CalculationResult,
     )
     
@@ -138,6 +145,7 @@ async def example_3_task_analysis():
     agent = Agent(
         name="任务规划师",
         instructions="分析用户的任务需求，制定详细的执行计划",
+        model=CHEAP_MODEL,  # 使用最便宜的模型
         output_type=TaskAnalysis,
     )
     
@@ -164,6 +172,7 @@ async def example_4_with_tools():
     agent = Agent(
         name="电影推荐助手",
         instructions="根据用户喜好推荐电影，使用搜索工具查找电影，并以结构化格式返回推荐列表",
+        model=CHEAP_MODEL,  # 使用最便宜的模型
         tools=[search_movies],
         output_type=MovieList,
     )
@@ -192,11 +201,12 @@ async def main():
     print("✅ 自定义客户端配置完成\n")
     
     # 运行所有示例
-    await example_1_simple_structure()
-    await example_2_calculation_structure()
-    await example_3_task_analysis()
+    #await example_1_simple_structure()
+    #await example_2_calculation_structure()
+    #await example_3_task_analysis()
     await example_4_with_tools()
     
+    """
     print("\n" + "="*50)
     print("✅ 第三课完成！")
     print("="*50)
@@ -207,6 +217,8 @@ async def main():
     print("4. 可以定义复杂的嵌套结构（如列表、对象）")
     print("5. 结构化输出可以和工具结合使用")
     print("\n💡 下一步: 学习会话管理和多轮对话")
+
+    """
 
 if __name__ == "__main__":
     if CUSTOM_API_KEY == "your-api-key-here":

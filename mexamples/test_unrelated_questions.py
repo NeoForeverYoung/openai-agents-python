@@ -21,6 +21,9 @@ from agents import (
 CUSTOM_BASE_URL = "https://aihubmix.com/v1"
 CUSTOM_API_KEY = os.getenv("AIHUBMIX_API_KEY", "your-api-key-here")
 
+# 模型配置 - 使用最便宜的模型进行测试
+CHEAP_MODEL = "gpt-3.5-turbo"  # 最便宜的 OpenAI 模型
+
 def setup_custom_client():
     """设置自定义客户端"""
     client = AsyncOpenAI(
@@ -140,6 +143,7 @@ async def test_agent_behavior():
     agent_default = Agent(
         name="默认助手",
         instructions="你是一个多功能智能助手，可以查询天气、进行计算和告诉用户当前时间。",
+        model=CHEAP_MODEL,  # 使用最便宜的模型
         tools=[get_weather, calculate, get_current_time],
     )
     
@@ -170,6 +174,7 @@ async def test_agent_behavior():
         
         如果用户的问题与这些功能无关，请礼貌地告知用户你只能处理上述类型的任务，并建议用户重新提问。
         """,
+        model=CHEAP_MODEL,  # 使用最便宜的模型
         tools=[get_weather, calculate, get_current_time],
     )
     
@@ -192,6 +197,7 @@ async def test_guardrails_behavior():
     agent_with_type_guardrail = Agent(
         name="类型护栏助手",
         instructions="你是一个多功能智能助手，可以查询天气、进行计算和告诉用户当前时间。",
+        model=CHEAP_MODEL,  # 使用最便宜的模型
         tools=[get_weather, calculate, get_current_time],
         input_guardrails=[
             InputGuardrail(guardrail_function=question_type_guardrail),
@@ -221,6 +227,7 @@ async def test_guardrails_behavior():
     agent_with_safety_guardrail = Agent(
         name="安全护栏助手",
         instructions="你是一个多功能智能助手。",
+        model=CHEAP_MODEL,  # 使用最便宜的模型
         tools=[get_weather, calculate, get_current_time],
         input_guardrails=[
             InputGuardrail(guardrail_function=content_safety_guardrail),
@@ -249,6 +256,7 @@ async def test_guardrails_behavior():
     agent_with_length_guardrail = Agent(
         name="长度护栏助手",
         instructions="你是一个多功能智能助手。",
+        model=CHEAP_MODEL,  # 使用最便宜的模型
         tools=[get_weather, calculate, get_current_time],
         input_guardrails=[
             InputGuardrail(guardrail_function=length_guardrail),
@@ -277,6 +285,7 @@ async def test_guardrails_behavior():
     agent_with_multiple_guardrails = Agent(
         name="多重护栏助手",
         instructions="你是一个多功能智能助手，可以查询天气、进行计算和告诉用户当前时间。",
+        model=CHEAP_MODEL,  # 使用最便宜的模型
         tools=[get_weather, calculate, get_current_time],
         input_guardrails=[
             InputGuardrail(guardrail_function=question_type_guardrail),

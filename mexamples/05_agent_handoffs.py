@@ -20,7 +20,11 @@ from agents import (
 # 自定义域名配置
 CUSTOM_BASE_URL = "https://aihubmix.com/v1"
 CUSTOM_API_KEY = os.getenv("AIHUBMIX_API_KEY", "your-api-key-here")
-CHEAP_MODEL = "gpt-3.5-turbo"
+# 模型配置 - 使用最便宜的模型进行测试
+#CHEAP_MODEL = "gpt-3.5-turbo"  # 最便宜的 OpenAI 模型
+#CHEAP_MODEL = "gpt-4.1"  # 最便宜的 OpenAI 模型
+#CHEAP_MODEL = "gpt-4.1-mini"  # 最便宜的 OpenAI 模型
+CHEAP_MODEL = "gpt-4.1-nano"  # 最便宜的 OpenAI 模型
 
 def setup_custom_client():
     """设置自定义客户端"""
@@ -40,6 +44,7 @@ def setup_custom_client():
 @function_tool
 def get_weather(city: Annotated[str, "城市名称"]) -> str:
     """获取天气信息"""
+    # 实际调用天气API，这里只是模拟一下
     print(f"🌤️  [天气工具] 查询: {city}")
     weather_data = {
         "北京": "晴天，温度 15-25°C，空气质量良好",
@@ -287,6 +292,7 @@ async def example_4_conditional_handoff():
     )
     
     # 创建智能决策 Agent
+    # handoffs的过程，其实也是AI大模型自动分析任务，然后选择合适的专家的过程
     decision_agent = Agent(
         name="智能决策助手",
         instructions="""你是一个智能决策助手，根据问题的复杂度选择合适的专家：
